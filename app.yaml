@@ -1,0 +1,21 @@
+# app.yaml file in the root directory of your project
+
+runtime: php82
+env: standard  # or 'flex' depending on your requirements
+# Specify the directory from which App Engine should serve files
+
+runtime_config:
+# This makes 'public/' the web-accessible root
+entrypoint: serve public/index.php
+
+handlers:
+# Serve static files like CSS, JS, images from the public directory
+- url: /(.+\.(jpg|png|gif|css|js))$
+  static_files: public/\1
+  upload: public/(.+\.(jpg|png|gif|css|js))$
+  # The 'application_readable: true' is needed if your PHP code needs to read these files
+  # application_readable: true
+
+# Route all other URLs to the front controller (index.php inside the public folder)
+- url: /.*
+  script: auto

@@ -1,0 +1,48 @@
+Options +FollowSymLinks
+
+RewriteEngine On
+
+RewriteRule ^([0-9a-zA-Z]+)$ index.php?u=$1 [L,QSA]
+
+# #Home profile page with no show-shared and no page number 
+# RewriteRule ^([0-9a-zA-Z]+)/?$ index.php?u=$1 [L,QSA]
+# #Home profile page with show-shared, no page number 
+# RewriteRule ^([0-9a-zA-Z]+)/(shared)?$ index.php?u=$1&show-shared=$2 [L,QSA]
+
+# #Home profile page with no show-shared, with page number 
+# RewriteRule ^([0-9a-zA-Z]+)/([0-9]+)?$ index.php?u=$1&page=$2 [L,QSA]
+# #Home profile page with show-shared, with page number
+# RewriteRule ^([0-9a-zA-Z]+)/(shared)/([0-9]+)?$ index.php?u=$1&show-shared=$2&page=$3 [L,QSA]
+
+
+RewriteRule ^search/(.+)?$ search/index.php?query=$1 [L,QSA,NE,B,PT]
+
+RewriteRule ^articles/(.+)?$ articles/index.php?slug=$1 [L,QSA,NE,B,PT]
+RewriteRule ^teacher-files/(.+)?$ teacher-files/index.php?slug=$1 [L,QSA,NE,B,PT]
+
+
+RewriteRule ^researches/(.+)?$ researches/index.php?slug=$1 [L,QSA,NE,B,PT]
+
+RewriteRule ^file-purchase/(.+)?$ file-purchase/index.php?file-id=$1 [L,QSA,NE,B,PT]
+
+RewriteRule ^create-account/(.+)?$ create-account/index.php?type=$1 [L,QSA,NE,B,PT]
+
+# RewriteRule ^account/other-registration/(.+)?$ account/index.php?regtype=$1 [L,QSA,NE,B,PT]
+
+# RewriteRule ^change-password/(.+)?$/(.+)?$ create-password/index.php?userid=$1&toke=$2 [L,QSA,NE,B,PT]
+
+# RewriteRule ^workspace/teacher/(edit)/([0-9]+)?$ workspace/teacher.php?edit=yes&file=$2 [L,QSA,NE,B,PT]
+
+
+RewriteCond %{REQUEST_URI} documents/teacher [NC]
+
+RewriteCond %{QUERY_STRING} !iframe=true [NC]
+
+RewriteRule ^.*$ /public/teacher-files [R=301,L]
+
+ErrorDocument 404 /eskquip/public/error.php
+
+
+
+
+
