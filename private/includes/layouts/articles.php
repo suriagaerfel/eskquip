@@ -1,5 +1,4 @@
 
-
 <form  class="actual-workspace" id="actual-workspace-writer-editor" method="post"  action="../../private/includes/processing/article-processing.php">  
     
 

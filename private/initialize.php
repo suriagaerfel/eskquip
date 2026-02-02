@@ -6,38 +6,35 @@
 
   $website = $publicFolder;
 
-  ob_start(); // Output buffering is turned on.
+  ob_start(); 
 
-  session_start(); //Start the session.
+  session_start(); 
 
-  date_default_timezone_set('Asia/Manila');//Set the default time zone.
+  date_default_timezone_set('Asia/Manila');
 
-  $currentTime = time(); //The variable for the current time is set.
+  $currentTime = time(); 
 
-  $currentTimeConverted = date("m/d/Y g:i A",  $currentTime); //The variable for the formatted current time is set.
+  $currentTimeConverted = date("m/d/Y g:i A",  $currentTime); 
 
-  $currentURL = $_SERVER['REQUEST_URI']; //The variable for current url
-
+  $currentURL = $_SERVER['REQUEST_URI']; 
   
   
  
 
-  require ('database.php'); //The database is required.
+  require ('database.php'); 
 
-  $loggedIn = isset($_SESSION['id']) ? true : false; //The log in status is set to false when an id of a user is not set in a session.
-$registrantId= isset($_SESSION['id']) ? $_SESSION['id'] : ''; //This variable is used to store the id of a user that is initially set in a session.
-
-
-  //DEFINING THE PATH FOR RELATIVE REFERENCE
-  define("PRIVATE_PATH", dirname(__FILE__)); //The directory folder of this file is defined as PRIVATE_PATH.
-  define("PROJECT_PATH", dirname(PRIVATE_PATH));//The directory folder of PRIVATE_PATH is defined as PROJECT_PATH.
-  define("PUBLIC_PATH", PROJECT_PATH . '/public');//The subfolder "public" of PROJECT_PATH is defined as PUBLIC_PATH.
-  define ("INCLUDESLAYOUT_PATH", PRIVATE_PATH.'/includes/layouts'); //The subfolder "includes/layouts" of PRIVATE_PATH is defined as INCLUDESLAYOUT_PATH.
-  define ("INCLUDESPROCESSING_PATH", PRIVATE_PATH.'/includes/processing');//The subfolder "includes/processing" of PRIVATE_PATH is defined as INCLUDESPROCESSING_PATH.
+  $loggedIn = isset($_SESSION['id']) ? true : false; 
+$registrantId= isset($_SESSION['id']) ? $_SESSION['id'] : ''; 
 
 
 
-//INITIALIZATION FUNCTIONS
+  define("PRIVATE_PATH", dirname(__FILE__)); 
+  define("PROJECT_PATH", dirname(PRIVATE_PATH));
+  define("PUBLIC_PATH", PROJECT_PATH . '/public');
+  define ("INCLUDESLAYOUT_PATH", PRIVATE_PATH.'/includes/layouts'); 
+  define ("INCLUDESPROCESSING_PATH", PRIVATE_PATH.'/includes/processing');
+
+
 
 function dcomplete_format($string="") {
   return date("M j, Y g:i a",strtotime($string));

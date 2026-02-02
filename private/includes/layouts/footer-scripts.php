@@ -258,14 +258,15 @@ $('#login-submit-button').click(function(){
 
     },success:function(response){
       
+    console.log (response);
 
-      if (response=='Login Successful') {
+      if (response ['login-status']=='Successful') {
         url.reload();
       }
 
-      if (response !='Login Successful') {
+      if (response ['login-status'] =='Unsuccessful') {
          $('#login-message').show();
-      $('#login-message').html(response);
+        $('#login-message').html(response['error']);
         $('#login-message').addClass('alert-danger');
       }
 

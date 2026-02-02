@@ -3,15 +3,13 @@
 require '../../initialize.php';
 require '../../database.php';
 
-//Sanitized already
-        if (isset($_POST["login_submit"])) {
 
-          // session_reset();
+        if (isset($_POST["login_submit"])) {
 
            $credential = htmlspecialchars($_POST["login_email_username"]);
            $pwd = htmlspecialchars($_POST["login_password"]);
 
-           $loginErrors = [];
+         
            $responses = [];
 
 
@@ -44,17 +42,13 @@ require '../../database.php';
 
                                           if ($loginContent=='Logged in') {
 
-                                            // header('Location:send-logout-link-processing.php?userid='.$registrantId.'&email-address='.$registrantEmailAddress) ;
-                                            
-                                            // ob_end_flush();
-
                                           $error = 'You are logged in in the other device. Open the email sent to log out.';
-                                          array_push($loginErrors,$error);
-                                          array_push($responses,$error);
+                                            $responses ['login-status'] = 'Unsuccessful';
+                                            $responses ['error'] =  $error;  
+                                          
                                             
                                           } else {
 
-                                          //Log the activity and make a session
                                           $activityContent='Logged in';
                                           
                                           $sqlInsertActivity = "INSERT INTO registrant_activities (registrant_activityUserId,registrant_activityContent) VALUES (?, ?)";
@@ -67,11 +61,10 @@ require '../../database.php';
                                                 mysqli_stmt_execute($stmt);
 
                                                 $_SESSION['id'] = $registrantId;
-                                                echo 'Login Successful';
+                                                $responses ['login-status'] = 'Successful';
+                                                $responses ['error'] = 'No error';
                                             }
-                                            
-                                            
-            
+                                             
                                           }
                                       }
 
@@ -79,49 +72,44 @@ require '../../database.php';
 
                                     } else {
                                             $error = 'Your account is not yet verified. Check your email to verify.';
-                                            array_push($loginErrors,$error);
-                                            array_push($responses,$error);       
+                                            $responses ['login-status'] = 'Unsuccessful';
+                                            $responses ['error'] =  $error;        
                                     }
 
               
                                   } else {
                                       $error = 'The password is not correct.';
-                                      array_push($loginErrors,$error);
-                                      array_push($responses,$error);
+                                      $responses ['login-status'] = 'Unsuccessful';
+                                      $responses ['error'] =  $error;
                                   }
                         
 
                     } else{
-
                         $error = 'Credential not found.';
-                        array_push($loginErrors,$error);
-                        array_push($responses,$error);
+                        $responses ['login-status'] = 'Unsuccessful';
+                        $responses ['error'] =  $error;
+
                     }
 
                 } elseif (!$pwd) {
                   $error = 'Please provide your password.';
-                  array_push($loginErrors,$error);
-                  array_push($responses,$error);  
+                 
+                  $responses ['login-status'] = 'Unsuccessful';
+                  $responses ['error'] =  $error;
                 }
 
            } else {
-                
-            $error = 'Please provide your credential.';
-            array_push($loginErrors,$error);
-            array_push($responses,$error);
-               
+            $error = 'Please provide your email address or username.';
+            $responses ['login-status'] = 'Unsuccessful';
+            $responses ['error'] = $error;
+
            }
 
            
 
-
-           
-
-
-           if ($responses) {
-              foreach ($responses as $response) {
-                echo $response ."<br>";         
-              }  
-           } 
-
+          if ($responses) {
+              header('Content-Type: application/json');
+              $jsonResponses = json_encode($responses,JSON_PRETTY_PRINT);
+              echo  $jsonResponses;
+          } 
         }        
