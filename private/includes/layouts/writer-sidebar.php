@@ -97,22 +97,12 @@ $resultArticles = $conn->query($sqlArticles);
             <?php if ($articleStatus!="Published" && !$review) {?>
             <a class="link-tag-button"href="?edit=yes&article=<?php echo $articleId;?>" title="Edit">Edit</a>
             
-            <a class="link-tag-button" href="../../private/includes/processing/update-article-info-processing.php?for-review=<?php echo $articleId;?>" title="Get Review">Get Review</a>
-
-            <?php if ($articleStatus!='Published') {?>
-            <a class="link-tag-button" href="<?php echo $website.'/articles/'.$articleSlug.'?preview=yes';?>" title="View">Preview</a>
-            <?php } ?>
-           
-           <?php if ($articleStatus!="Published" && $articleStatus!="To Revise" && $articleFeaturedImage) {?>
-            <a class="link-tag-button" href="../../private/includes/processing/update-article-info-processing.php?publish=<?php echo $articleId;?>" title="Publish">Publish</a>
-            <?php }?>
-
+             <a class="link-tag-button" href="<?php echo $website.'/articles/'.$articleSlug.'?preview=yes';?>" title="View">Preview</a>
+          
             <?php }?>
            
             
             <?php if ($articleStatus=="Published") {?>
-            <a class="link-tag-button" href="../../private/includes/processing/update-article-info-processing.php?unpublish=<?php echo $articleId;?>" title="Unpublish">Unpublish</a>
-
             <a class="link-tag-button" href="<?php echo $website.'/articles/'.$articleSlug;?>" title="View">View</a>
             <?php }?>
         </div>

@@ -1,4 +1,5 @@
 <body>
+        <input type="text" value="<?php echo $pageName;?>" hidden id="page-name">
         <?php if ($pageName != 'Create Account' && $pageName != 'Login' && $pageName != 'Get Password Link') {?>
         <div class="header">
             <div class="logo-container">
@@ -30,125 +31,11 @@
             <?php if ($pageName !='Search'){ ?> 
            
             <div id="header-search-container" class="search-container">
-
-                <?php $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;?>
-                    
-                    <?php if ($pageName=='Home' || $pageName=='My Account' || $pageName=='404 - Page Not Found'){
-                        $placeholder = 'Search content...';
-                    }?>
-
-                    <?php if ($pageName=='Tools' || $pageName=='Articles' || $pageName=='Teacher Files' || $pageName=='Researches'){
-                        $placeholder = 'Search in '.strtolower($pageName).'...';
-                    }?>
-
-                    
-                    <?php if (str_contains($currentURL, '/articles/')){
-                        $placeholder = 'Search in articles...';
-                        $queryIn='articles';
-                    }?>
-
-                    <?php if (str_contains($currentURL, '/tools/')){
-                        $placeholder = 'Search in tools...';
-                        $queryIn='tools';
-                    }?>
-
-                    <?php if (str_contains($currentURL, '/teacher-files/')){
-                        $placeholder = 'Search in teacher files...';
-                        $queryIn='teacher-files';
-                    }?>
-
-                    <?php if (str_contains($currentURL, '/file-purchase/')){
-                        $placeholder = 'Search in teacher files...';
-                        $queryIn='teacher-files';
-                    }?>
-
-                    <?php if (str_contains($currentURL, '/researches/')){
-                        $placeholder = 'Search in researches...';
-                        $queryIn='researches';
-                    }?>
-
-                    <?php if (str_contains($currentURL, '/account/')){
-                        $placeholder = 'Search in accounts...';
-                        $queryIn='accounts';
-                    }?>
-
-                    <?php if ($u){
-                        $placeholder = 'Search in accounts...';
-                        $queryIn='accounts';
-                    }?>
-                    
-
-                    
-                    <?php if ($pageName=='Workspace - Developer') {
-                        $placeholder = 'Search in my tools...';
-                    }?>
-
-                    <?php if ($pageName=='Workspace - Teacher') {
-                        $placeholder = 'Search in my files...';
-                    }?>
-
-                    <?php if ($pageName=='Workspace - Writer') {
-                        $placeholder = 'Search in my articles...';
-                    }?>
-
-                    <?php if ($pageName=='Workspace - Editor') {
-                        $placeholder = 'Search in articles...';
-                    }?>
-
-                    <?php if ($pageName=='School Workspace - Researches') {
-                        $placeholder = 'Search in my researches...';
-                    }?>
-
-                     <?php if ($pageName=='Workspace - Site Manager') {
-                        $placeholder = 'Search in records...';
-                    }?>
-
-                    <?php if ($pageName=='Terms of Use') {
-                        $placeholder = 'Search in articles...';
-                    }?>
-
-                    <?php if ($pageName=='Data Privacy') {
-                        $placeholder = 'Search in articles...';
-                    }?>
-
-                    <?php if ($pageName=='About Us') {
-                        $placeholder = 'Search in articles...';
-                    }?>
-
-                    <?php if ($pageName=='Messages') {
-                        $placeholder = 'Search in messages...';
-                    }?>
-
-                    <?php if ($pageName=='Updates') {
-                        $placeholder = 'Search in updates...';
-                    }?>
-
-
-
-
-                    <?php if ($pageName=='Login' || $pageName=='Create Account' || $pageName=='Get Password Link' || $pageName=='Change Password'){
-                        $placeholder = 'Search in accounts...';
-                    }?>
-
-                    
-
-                <?php 
-                // $searchAction = "../../private/includes/processing/search-processing.php";
-                // if ($pageName=='Workspace - Site Manager') {
-                //     $searchAction = "../../private/includes/processing/search-processing.php";
-                // }
-                ?>
-                <form action="../../private/includes/processing/search-processing.php" method="post" id="search-form" >
-                    
-                    <?php require (INCLUDESLAYOUT_PATH.'/search-conditions.php');?>
-                   
-
-                    <input type="search" name="query" value="<?php echo $query?>" placeholder="<?php echo $placeholder?>" class="input search-input header-search-input">
-
-                    <button type="submit" class="search-button header-search-button ">
-                        <img src="<?php echo $website.'/assets/images/header-search.svg'?>" class="icon header-icon search-icon header-search-icon " title="Search">
+                <div style="display: flex; gap:10px;">  
+                    <button type="submit" class="search-button header-search-button " id="header-search-button">
+                            <img src="<?php echo $website.'/assets/images/header-search.svg'?>" class="icon header-icon search-icon header-search-icon " title="Search" id="header-search-button">
                     </button>
-                </form>
+                </div>
             </div>
             <?php }?>
 
@@ -227,6 +114,8 @@
         <?php include ('website-modal.php');?>
 
         <?php } ?>
+
+        
       
         
 

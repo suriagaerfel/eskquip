@@ -9,6 +9,7 @@
 const url = window.location;
 const urlParams = new URLSearchParams(url.search);
 var website_name = $('#website-name-hidden').val();
+var page_name = $('#page-name').val();
 
 //THIS IS THE FUNCTION TO SHOW/HIDE HEADER NAVIGATION FOR MOBILE/TABLET.
 //NOT CREATED WITH JQUERY SO THAT IT WILL STILL EXECUTE EVEN THE DOCUMENT IS NOT READY OR COMPLETELY LOADED.
@@ -142,6 +143,122 @@ $(document).ready(function(){
     window.history.pushState({}, document.title, url);
   }
 
+
+
+  function updateUrlParameter(key, value) {
+  // Create URL and URLSearchParams objects from the current window location
+  const url = new URL(window.location.href);
+  const searchParams = url.searchParams;
+
+  // Set the new value for the specified key
+  searchParams.set(key, value);
+
+  // Update the URL in the browser history without reloading the page
+  window.history.pushState({}, '', url);
+}
+
+
+
+  $('#header-search-button').click(function(){
+  
+      var search_page = '/eskquip/public/search/';
+      window.location.href = search_page;
+      
+  }
+);
+
+
+$('#search-page-query').on('input',function(){
+    searchRecords();
+});
+
+
+
+
+function searchRecords (){
+
+var query = $('#search-page-query').val();
+var query_in = $('#query-in').val();
+var processing_file = '../../private/includes/processing/non-workspace-search-processing.php';
+
+if (query.length >=3) {
+  $.ajax({
+    url: processing_file,
+    type: 'POST',
+    async: true,
+    data: {
+        query: query,
+        query_in: query_in,
+        search_submit: true
+    },success:function(responses){
+
+   
+       $('#query-heading').show();
+      $('#search-results').show();
+
+     $('#query-heading').text('You search for '+ query);
+    $('#search-results').html(responses);
+    
+
+    } 
+  });
+
+} else {
+   $('#query-heading').hide();
+    $('#search-results').hide();
+}
+
+
+
+
+
+ 
+
+}
+
+
+
+
+
+$('#search-results-filter a').click(function(){
+  var filter_id = $(this).attr('id');
+  $('.indicator').hide();
+  $('.filter-button').show();
+
+  
+
+  var record_type = '';
+
+ 
+   if (filter_id.includes('teacher-files')) {
+    record_type = 'teacher-files';
+  }
+
+  if (filter_id.includes('articles')) {
+    record_type = 'articles';
+  }
+
+  if (filter_id.includes('researches')) {
+    record_type = 'researches';
+  }
+
+   if (filter_id.includes('tools')) {
+    record_type = 'tools';
+  }
+
+   if (filter_id.includes('accounts')) {
+    record_type = 'accounts';
+  }
+
+    $('#query-in').val(record_type);
+    $('#filter-'+record_type+'-button').hide();
+    $('#filter-'+record_type+'-indicator').show();
+ 
+  
+  searchRecords();
+});
+  
+
 //WHEN THE DOCUMENT IS READY, SHOW THE CREATE ACCOUNT INPUTS FOR PERSONAL WHEN A BUTTON IS CLICKED.
 $('#create-account-personal-button').click (function(){
   // $(this).hide();
@@ -268,9 +385,11 @@ $('#login-submit-button').click(function(){
          $('#login-message').show();
         $('#login-message').html(response['error']);
         $('#login-message').addClass('alert-danger');
+
+        
       }
 
-    }
+  } 
 });
 
 hideAlerts();
@@ -869,10 +988,33 @@ $("#subscription-type").change(function(){
 
 
   //WHEN THE DOCUMENT IS READY, SHOW THE WORKSPACE LIST MODAL WHEN A BUTTON IS CLICKED.
+  $('.workspace-list a').click (function(){
+    var workspace_id = $(this).attr('id');
+
+   $('#modal-workspace').show();
+
+    if (workspace_id.includes('teacher')) {
+          $('#workspace-heading').html('Teacher Workspace');
+          $('#workspace-type').val('Teacher');
+    }
+
+    if (workspace_id.includes('writer')) {
+          $('#workspace-heading').html('Writer Workspace');
+          $('#workspace-type').val('Writer');
+    }
+
+    if (workspace_id.includes('editor')) {
+          $('#workspace-heading').html('Editor Workspace');
+          $('#workspace-type').val('Editor');
+    }
+
+  });
+
+
+  //WHEN THE DOCUMENT IS READY, SHOW THE WORKSPACE MODAL WHEN A BUTTON IS CLICKED.
   $('#show-workspace-button').click (function(){
    $('#modal-workspace-list').show();
   });
-
   
   // WHEN THE DOCUMENT IS READY, CLOSE MODAL WHENWITH NO NULL REDIRECTION WHEN THE BUTTON IS CLICKED.
 $('.close-without-null-redirection').click (function(){

@@ -1954,3 +1954,7 @@ tr {
 .search-page-navigation-container a {
   margin-bottom: 10px;
 }
+
+.indicator {
+  display: none;
+}

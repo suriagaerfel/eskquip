@@ -159,12 +159,9 @@
             <?php echo $content;?>
         </textarea>
         
-        <?php if ($articleToEdit) {?>
-            <textarea type="text" id="article-content-actual"><?php echo $db_content?></textarea>
-            <textarea type="text" id="article-content-session"><?php echo $_SESSION[$specificArticleContent]?></textarea>
-        <?php } ?>
+       
 
-        <input type="text" id="sample-input">
+       
 
 
         <div class="comment-section">

@@ -76,7 +76,7 @@
         </div>
 
         <div id="file-category-access-type-amount-shared-with-container">
-            <select name="category" id="file-category">
+            <select name="category" id="file-category" <?php if ($status == 'Published') {echo 'disabled'; }?>>
                     <option value="" selected hidden>Select Category</option>
                     <option value="Lesson Plan" <?php if ($category=='Lesson Plan') {echo 'selected';}?>>Lesson Plan</option>
                     <option value="Syllabus" <?php if ($category=='Syllabus') {echo 'selected';}?>>Syllabus</option>
@@ -85,7 +85,7 @@
                     <option value="Presentation" <?php if ($category=='Presentation') {echo 'selected';}?>>Presentation</option>
             </select>
 
-            <select name="accessType" id="file-access-type">
+            <select name="accessType" id="file-access-type" <?php if ($status == 'Published') {echo 'disabled'; }?>>
                     <option value="" selected hidden>Access Type</option>
                     <option value="Free" <?php if ($accessType=='Free') {echo 'selected';}?>>Free</option>
 
@@ -97,16 +97,16 @@
             <input type="text" placeholder="Amount" name="amount" value="<?php echo $amount?>" hidden>
 
             <?php if ($accessType=='Purchased') {?>
-            <input type="text" placeholder="Amount" name="amount" id="file-amount" value="<?php echo $amount?>" id="file-amount">
+            <input type="text" placeholder="Amount" name="amount" id="file-amount" value="<?php echo $amount?>" id="file-amount" <?php if ($status == 'Published') {echo 'disabled'; }?>>
             <?php } ?>
 
-            <input type="text" id="file-shared-with" placeholder="Share this file with..." name="sharedWith" value="<?php echo $sharedWith?>">
+            <input type="text" id="file-shared-with" placeholder="Share this file with..." name="sharedWith" value="<?php echo $sharedWith?>" <?php if ($status == 'Published') {echo 'disabled'; }?>>
 
 
         </div>
 
              
-            <textarea id="file-description" type="text" name="description" placeholder="Description"><?php echo $description;?></textarea>
+            <textarea id="file-description" type="text" name="description" placeholder="Description" <?php if ($status == 'Published') {echo 'disabled'; }?>><?php echo $description;?></textarea>
 
             <?php 
             $buttonLable = $fileToEdit ? "Update": "Save";
@@ -181,15 +181,15 @@
                     <?php }?>
 
                     <?php if($status=="Published") {?>
-                    <a class="link-tag-button" id="file-unpublish-button">AJAX Unpublish</a>
+                    <a class="link-tag-button" id="file-unpublish-button">Unpublish</a>
                     <?php }?>
 
                     <?php if ($sellerSubscribed ) {?>
                     <?php if($forSale=="Not for Sale" && $status=="Published" && $accessType=='Purchased' && $filledOutSellingDetails && $amount) {?>
-                    <a class="link-tag-button" id="file-sell-button">AJAX Sell</a>
+                    <a class="link-tag-button" id="file-sell-button">Sell</a>
                     <?php }?>
                     <?php if($forSale=="For Sale") {?>
-                    <a class="link-tag-button" id="file-unsell-button">AJAX Unsell</a>
+                    <a class="link-tag-button" id="file-unsell-button">Unsell</a>
                     <?php }?>
 
                     <?php } ?>

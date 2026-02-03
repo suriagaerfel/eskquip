@@ -180,7 +180,7 @@ $getTeacherFilesResult = mysqli_query($conn,$getTeacherFiles); ?>
     <?php if ($fileId!=$fileToEdit) {?>
       <div class="workspace-sidebar-content-list-buttons">  
             <?php if ($fileStatus != 'Published') {?>
-                <a class="link-tag-button"href="/public/workspace/teacher.php?edit=yes&file=<?php echo $fileId?>" title="Edit">Edit</a>
+                <a class="link-tag-button" href="<?php echo $website.'/workspace/teacher.php?edit=yes&file='.$fileId?>" title="Edit">Edit</a>
             <?php } ?>
 
             <?php if($fileStatus=='Published') { ?>
@@ -191,24 +191,8 @@ $getTeacherFilesResult = mysqli_query($conn,$getTeacherFiles); ?>
                 <a class="link-tag-button" href="<?php echo $website.'/teacher-files/'.$fileSlug.'?preview=yes';?>" title="Preview">Preview</a>
             <?php } ?>
 
-            <?php if($fileStatus!="Published" && $fileImage) {?>
-                <a class="link-tag-button" href="../../private/includes/processing/update-teacher-file-info-processing.php?publish=<?php echo $fileId?>" title="Publish">Publish</a>
-            <?php }?>
-
-            <?php if($fileStatus=="Published") {?>
-                <a class="link-tag-button" href="../../private/includes/processing/update-teacher-file-info-processing.php?&unpublish=<?php echo $fileId?>"  title="Unpublish">Unpublish</a>
-            <?php }?>
-
-            <?php if ($sellerSubscribed) {?>
-                <?php if($fileForSale=="Not for Sale" && $fileStatus=="Published" && $filledOutSellingDetails && $fileAmount) {?>
-                <a class="link-tag-button" href="../../private/includes/processing/update-teacher-file-info-processing.php?sell=<?php echo $fileId?>" title="Sell">Sell</a>
-                <?php }?>
-
-                <?php if($fileForSale=="For Sale") {?>
-                <a class="link-tag-button" href="../../private/includes/processing/update-teacher-file-info-processing.php?unsell=<?php echo $fileId?>" title="Unsell">Unsell</a>
-                <?php }?>
-            <?php } ?>
         </div>
+        
         <?php if(!$fileImage) {?>
             <small class="small-text">No thumbnail</small>
         <?php }?>

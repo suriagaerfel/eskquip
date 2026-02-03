@@ -499,7 +499,7 @@ if ($researchToEdit) {
                 <?php if($teacherRegistration) { ?>
                      <a href="<?php echo $website.'/workspace/teacher.php'?>" class="link-tag-button" target='_blank'>Teacher</a>
                 <?php }?>
-
+ 
                 <?php if($writerRegistration) { ?>
                      <a href="<?php echo $website.'/workspace/writer.php'?>" class="link-tag-button" target='_blank'>Writer</a>
                 <?php }?>
@@ -526,6 +526,7 @@ if ($researchToEdit) {
                      <a href="<?php echo $website.'/workspace/funder.php'?>" class="link-tag-button" target='_blank'>Funder</a>
                 <?php }?>
 
+
                 <?php } ?>
 
                 
@@ -535,6 +536,13 @@ if ($researchToEdit) {
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
 
 
 
